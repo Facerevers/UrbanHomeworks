@@ -2,6 +2,10 @@ class Figure:
     sides_count = 0
 
     def __init__(self, color, *sides):
+        if not all(isinstance(x, (int, float)) for x in sides):
+            print("Значения сторон должны быть числовыми!")
+        if any(x <= 0 for x in sides):
+            print("Стороны не могут быть отрицательными")
         if len(sides) != self.sides_count:
             sides = [1] * self.sides_count
         self.__sides = list(sides)
