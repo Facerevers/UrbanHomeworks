@@ -16,17 +16,18 @@ class Figure:
         return self.__color
 
     def __is_valid_color(self, *color):
-        return all(0 <= x <= 255 for x in color)
+        return all(isinstance(x, int) for x in color) and all(0 <= x <= 255 for x in color)
 
     def set_color(self, r, g, b):
         if self.__is_valid_color(r, g, b):
             self.__color = [r, g, b]
 
     def __is_valid_sides(self, *new_sides):
-        return all(x > 0 for x in new_sides) and len(new_sides) == self.sides_count and all(type(x) == 'int' for x in new_sides)
+        if len(new_sides) != self.sides_count: return False
+        return all(x > 0 for x in new_sides) and all(isinstance(x, int) for x in new_sides)
 
     def set_sides(self, *new_sides):
-        if self.__is_valid_sides(*new_sides) and len(new_sides) == self.sides_count:
+        if self.__is_valid_sides(*new_sides):
             self.__sides = list(new_sides)
 
     def __len__(self):
