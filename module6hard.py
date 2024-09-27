@@ -9,7 +9,13 @@ class Figure:
         if len(sides) != self.sides_count:
             sides = [1] * self.sides_count
         self.__sides = list(sides)
-        self.__color = list(color)
+        if not all(isinstance(x, int) for x in color):
+            print("Цвет должен задаваться цифрами!")
+        if len(color) != 3:
+            print("Цвет должен задаваться тремя числовыми значениями!")
+        if not all(0 <= x <= 255 for x in color):
+            print("Числа должны быть в диапазоне 0 - 255")
+        self.__color = color
         self.filled = False
 
     def get_sides(self):
@@ -44,7 +50,7 @@ class Circle(Figure):
 
     def __init__(self, color, *sides):
         super().__init__(color, *sides)
-        self.__radius = self._Figure__sides[0] / (2 * 3.14)
+        self.__radius = self.get_sides()[0] / (2 * 3.14)
 
     def radius(self):
         return self.__radius
@@ -60,7 +66,7 @@ class Triangle(Figure):
         super().__init__(color, *sides)
 
     def get_square(self):
-        a, b, c = self.__sides
+        a, b, c = self.get_sides()
         p = (a + b + c) / 2
         return (p * (p - a) * (p - b) * (p - c)) ** 0.5
 
@@ -73,7 +79,7 @@ class Cube(Figure):
         super().__init__(color,*[sides[0]] * 12)
 
     def get_volume(self):
-        return self._Figure__sides[0] ** 3
+        return self.get_sides()[0] ** 3
 
 
 
