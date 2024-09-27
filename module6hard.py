@@ -1,21 +1,9 @@
 class Figure:
     sides_count = 0
 
-    def __init__(self, color, *sides):
-        if not all(isinstance(x, (int, float)) for x in sides):
-            print("Значения сторон должны быть числовыми!")
-        if any(x <= 0 for x in sides):
-            print("Стороны не могут быть отрицательными")
-        if len(sides) != self.sides_count:
-            sides = [1] * self.sides_count
-        self.__sides = list(sides)
-        if not all(isinstance(x, int) for x in color):
-            print("Цвет должен задаваться цифрами!")
-        if len(color) != 3:
-            print("Цвет должен задаваться тремя числовыми значениями!")
-        if not all(0 <= x <= 255 for x in color):
-            print("Числа должны быть в диапазоне 0 - 255")
-        self.__color = color
+    def __init__(self, color: list, *sides: int):
+        self.__color = [*color] if self.__is_valid_color(*color) else[0,0,0]
+        self.__sides = [*sides] if len(sides) == self.sides_count else [1] * self.sides_count
         self.filled = False
 
     def get_sides(self):
@@ -27,18 +15,18 @@ class Figure:
     def get_color(self):
         return self.__color
 
-    def __is_valid_color(self, r, g, b):
-        return all(0 <= x <= 255 for x in (r, g, b))
+    def __is_valid_color(self, *color):
+        return all(0 <= x <= 255 for x in color)
 
     def set_color(self, r, g, b):
         if self.__is_valid_color(r, g, b):
             self.__color = [r, g, b]
 
     def __is_valid_sides(self, *new_sides):
-        return all(x > 0 for x in new_sides) and len(new_sides) == self.sides_count
+        return all(x > 0 for x in new_sides) and len(new_sides) == self.sides_count and all(type(x) == 'int' for x in new_sides)
 
     def set_sides(self, *new_sides):
-        if self.__is_valid_sides(*new_sides):
+        if self.__is_valid_sides(*new_sides) and len(new_sides) == self.sides_count:
             self.__sides = list(new_sides)
 
     def __len__(self):
@@ -106,3 +94,4 @@ print(len(circle1))
 
 # Проверка объёма (куба):
 print(cube1.get_volume())
+print()
