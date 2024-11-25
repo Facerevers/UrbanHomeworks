@@ -13,12 +13,6 @@ class TournamentTest(unittest.TestCase):
         self.r3 = module_12_2.Runner("Ник", 3)
 
 
-    def tearDown(self):
-        # Сбрасываем расстояние участников после каждого теста
-        self.r1.reset_distance()
-        self.r2.reset_distance()
-        self.r3.reset_distance()
-
     def testRunUN(self):
         t1 = module_12_2.Tournament(90, self.r1, self.r3)
         results = t1.start()
@@ -32,7 +26,7 @@ class TournamentTest(unittest.TestCase):
         self.assertTrue(list(results.values())[-1] == "Ник")
 
     def testRunUAN(self):
-        t1 = module_12_2.Tournament(90, self.r1, self.r3, self.r3)
+        t1 = module_12_2.Tournament(90, self.r1, self.r2, self.r3)
         results = t1.start()
         self.all_results[3] = results
         self.assertTrue(list(results.values())[-1] == "Ник")
