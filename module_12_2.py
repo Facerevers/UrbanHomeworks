@@ -10,9 +10,6 @@ class Runner:
     def walk(self):
         self.distance += self.speed
 
-    def reset_distance(self):
-        self.distance = 0
-
     def __str__(self):
         return self.name
 
