@@ -29,6 +29,7 @@ product_button4 = InlineKeyboardButton(text="Продукт 4", callback_data="p
 product_buying_menu = InlineKeyboardMarkup(resize_keyboard=True)
 product_buying_menu.add(product_button1, product_button2, product_button3, product_button4)
 
+initiate_db(connection, cursor)
 
 products = get_all_products(connection, cursor)
 
@@ -142,6 +143,7 @@ async def set_age(message, state):
     await state.update_data(age=message.text)
     data = await state.get_data()
     add_user(data["username"], data["email"], data["age"], connection, cursor)
+    await message.answer("Регистрация прошла успешно")
     await state.finish()
 
 
