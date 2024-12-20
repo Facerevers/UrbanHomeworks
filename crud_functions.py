@@ -4,7 +4,7 @@ connection = sqlite3.connect("telbotdb.db")
 cursor = connection.cursor()
 
 
-def initiate_db():
+def initiate_db(connection, cursor):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS Products(
     id INTEGER PRIMARY KEY,
