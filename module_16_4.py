@@ -39,7 +39,6 @@ async def add_user(username: str, age: int):
 
 @app.put("/user/{user_id}/{username}/{age}", responce_model=User)
 async def update_user(user_id: int, username: str, age: int):
-    # Проверка на валидность параметров
     if age < 18 or age > 100:
         raise HTTPException(status_code=400, detail="Age must be between 18 and 100.")
 
